@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f5f8fc">
+  <meta name="description" content="Turn your study notes into summaries, key points, practice questions and flashcards.">
+  <title>Studywise — Academic Notes Summarizer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <script defer src="https://unpkg.com/mammoth@1.8.0/mammoth.browser.min.js"></script>
+  <script defer src="js/script.js"></script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="#" aria-label="Studywise home">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 32 32"><path d="M7 6.5h11.3a5.7 5.7 0 0 1 5.7 5.7v13.3H12.7A5.7 5.7 0 0 1 7 19.8V6.5Z"/><path d="M12 11h7M12 15h7M12 19h4"/></svg>
+        </span>
+        <span>studywise<span class="brand-period">.</span></span>
+      </a>
+      <div class="workspace-label">WORKSPACE</div>
+      <nav class="side-nav" aria-label="Main navigation">
+        <a href="#overview" class="nav-link active" data-nav="overview">
+          <svg viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.5"/></svg>
+          Overview
+        </a>
+        <a href="#your-notes" class="nav-link" data-nav="your-notes">
+          <svg viewBox="0 0 24 24"><path d="M6 3.75h8l4 4v12.5H6z"/><path d="M14 3.75v4h4M9 12h6M9 15.5h6"/></svg>
+          My notes <span class="nav-count" id="notes-count">0</span>
+        </a>
+        <a href="#study-tools" class="nav-link" data-nav="study-tools">
+          <svg viewBox="0 0 24 24"><path d="m12 3 1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8L12 3Z"/><path d="m19 15 .9 2.1L22 18l-2.1.9L19 21l-.9-2.1L16 18l2.1-.9L19 15Z"/></svg>
+          Study tools
+        </a>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="sidebar-tip">
+          <div class="tip-icon"><svg viewBox="0 0 24 24"><path d="M9 18h6M10 21h4M8.2 14.5a6 6 0 1 1 7.6 0c-.8.6-1.3 1.4-1.5 2.5h-4.6c-.2-1.1-.7-1.9-1.5-2.5Z"/></svg></div>
+          <strong>Study smarter</strong>
+          <p>Turn your notes into a study plan that works for you.</p>
+          <a href="#study-tools">Explore study tools <span aria-hidden="true">→</span></a>
+        </div>
+        <div class="profile">
+          <div class="avatar">S</div>
+          <div class="profile-copy"><strong>Student workspace</strong><span>Personal account</span></div>
+          <span class="profile-menu" aria-hidden="true">•••</span>
+        </div>
+      </div>
+    </aside>
+
+    <main class="main-content" id="overview">
+      <header class="topbar">
+        <button class="mobile-menu" id="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false">
+          <svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+        <div class="breadcrumb">Workspace <span>/</span> <strong>Overview</strong></div>
+        <div class="topbar-right">
+          <span class="today-label" id="today-label"></span>
+          <button type="button" class="icon-button" id="help-button" aria-label="Help">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M9.7 9a2.4 2.4 0 1 1 4.1 1.7c-1 .9-1.8 1.2-1.8 2.8M12 16.8v.1"/></svg>
+          </button>
+        </div>
+      </header>
+
+      <div class="page-wrap">
+        <section class="welcome-row">
+          <div>
+            <div class="eyebrow"><span class="eyebrow-dot"></span> YOUR PERSONAL STUDY SPACE</div>
+            <h1>Make every study session <span>count.</span></h1>
+            <p class="welcome-subtitle">Upload your notes and turn them into focused, exam-ready study material.</p>
+          </div>
+          <div class="welcome-art" aria-hidden="true">
+            <div class="art-orbit orbit-one"></div><div class="art-orbit orbit-two"></div>
+            <div class="art-paper"><i></i><i></i><i></i><b>✦</b></div>
+            <div class="art-spark spark-one">✦</div><div class="art-spark spark-two">✦</div>
+          </div>
+        </section>
+
+        <section class="stats-grid" aria-label="Workspace stats">
+          <article class="stat-card">
+            <div class="stat-icon blue"><svg viewBox="0 0 24 24"><path d="M6 3.75h8l4 4v12.5H6z"/><path d="M14 3.75v4h4M9 12h6M9 15.5h6"/></svg></div>
+            <div><span class="stat-label">Notes uploaded</span><strong id="stat-notes">0</strong><span class="stat-note">Ready when you are</span></div>
+            <span class="stat-decoration">↗</span>
+          </article>
+          <article class="stat-card">
+            <div class="stat-icon violet"><svg viewBox="0 0 24 24"><path d="M12 3v18M17 7.5c0-1.7-2.2-3-5-3s-5 1.3-5 3 1.5 2.5 5 3 5 1.3 5 3-2.2 3-5 3-5-1.3-5-3"/></svg></div>
+            <div><span class="stat-label">Words processed</span><strong id="stat-words">0</strong><span class="stat-note">Across your study notes</span></div>
+            <span class="stat-decoration">✳</span>
+          </article>
+          <article class="stat-card">
+            <div class="stat-icon mint"><svg viewBox="0 0 24 24"><path d="M12 3.5 14.6 9l5.9.9-4.2 4.1 1 5.8-5.3-2.8-5.3 2.8 1-5.8-4.2-4.1 5.9-.9L12 3.5Z"/></svg></div>
+            <div><span class="stat-label">Study materials</span><strong id="stat-materials">0</strong><span class="stat-note">Summaries, cards &amp; more</span></div>
+            <span class="stat-decoration">✳</span>
+          </article>
+        </section>
+
+        <div class="content-grid">
+          <div class="primary-column">
+            <section class="panel upload-panel" id="your-notes">
+              <div class="section-heading">
+                <div><div class="section-kicker">GET STARTED</div><h2>Bring your notes</h2></div>
+                <span class="step-tag"><span>01</span> Upload</span>
+              </div>
+              <label class="dropzone" id="dropzone" for="file-input">
+                <input id="file-input" type="file" accept=".pdf,.txt,.docx,application/pdf,text/plain,application/vnd.openxmlformats-officedocument.wordprocessingml.document">
+                <span class="upload-illustration">
+                  <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 31V11m0 0-7 7m7-7 7 7"/><path d="M12 27v10a3 3 0 0 0 3 3h18a3 3 0 0 0 3-3V27"/></svg>
+                  <span class="upload-plus">+</span>
+                </span>
+                <strong>Drop your file here <span>or browse</span></strong>
+                <small>PDF, DOCX or TXT · Up to 20 MB</small>
+                <span class="privacy-note"><svg viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V7a4 4 0 1 1 8 0v3M12 14v3"/></svg> Your documents stay in this browser</span>
+              </label>
+              <div class="file-card hidden" id="file-card" aria-live="polite">
+                <span class="file-type-icon" id="file-type-icon">TXT</span>
+                <div class="file-meta"><strong id="file-name">notes.txt</strong><span id="file-details">0 KB · Ready to study</span></div>
+                <span class="file-status" id="file-status"><span></span> Ready</span>
+                <button class="remove-file" type="button" id="remove-file" aria-label="Remove uploaded file">×</button>
+              </div>
+              <div class="upload-error hidden" id="upload-error" role="alert"></div>
+            </section>
+
+            <section class="panel output-panel" id="study-tools">
+              <div class="section-heading output-heading">
+                <div><div class="section-kicker">YOUR STUDY KIT</div><h2>What would you like to create?</h2></div>
+                <span class="step-tag"><span>02</span> Create</span>
+              </div>
+              <div class="tool-grid" role="group" aria-label="Choose a study tool">
+                <button class="tool-card selected" type="button" data-action="concise" aria-pressed="true">
+                  <span class="tool-icon icon-summary"><svg viewBox="0 0 24 24"><path d="M5 5.5h14M5 10h14M5 14.5h9M5 19h7"/></svg></span>
+                  <strong>Quick summary</strong><span>A concise overview of the main ideas</span><span class="tool-arrow">↗</span>
+                </button>
+                <button class="tool-card" type="button" data-action="detailed" aria-pressed="false">
+                  <span class="tool-icon icon-detailed"><svg viewBox="0 0 24 24"><path d="M5 5.5h14M5 9.5h14M5 13.5h14M5 17.5h9"/></svg></span>
+                  <strong>Detailed summary</strong><span>Explore key concepts in more depth</span><span class="tool-arrow">↗</span>
+                </button>
+                <button class="tool-card" type="button" data-action="keypoints" aria-pressed="false">
+                  <span class="tool-icon icon-points"><svg viewBox="0 0 24 24"><path d="m5 7 1.5 1.5L9 6M11 7h8M5 13l1.5 1.5L9 12M11 13h8M5 19l1.5 1.5L9 18M11 19h8"/></svg></span>
+                  <strong>Key points</strong><span>Pull out the ideas worth remembering</span><span class="tool-arrow">↗</span>
+                </button>
+                <button class="tool-card" type="button" data-action="questions" aria-pressed="false">
+                  <span class="tool-icon icon-questions"><svg viewBox="0 0 24 24"><path d="M8.5 9a3.5 3.5 0 1 1 6 2.5c-1.4 1.2-2.5 1.5-2.5 3.5M12 19h.01"/><circle cx="12" cy="12" r="9"/></svg></span>
+                  <strong>Exam practice</strong><span>Questions with answers from your notes</span><span class="tool-arrow">↗</span>
+                </button>
+                <button class="tool-card" type="button" data-action="flashcards" aria-pressed="false">
+                  <span class="tool-icon icon-cards"><svg viewBox="0 0 24 24"><rect x="7" y="5" width="12" height="15" rx="2"/><path d="M15 5V4a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h1"/></svg></span>
+                  <strong>Flashcards</strong><span>Build quick prompts for active recall</span><span class="tool-arrow">↗</span>
+                </button>
+              </div>
+              <div class="create-row">
+                <span class="create-hint" id="create-hint">Upload a file to get started.</span>
+                <button class="primary-button" id="generate-button" type="button" disabled>
+                  <svg viewBox="0 0 24 24"><path d="m12 3 1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8L12 3Z"/><path d="m19 15 .9 2.1L22 18l-2.1.9L19 21l-.9-2.1L16 18l2.1-.9L19 15Z"/></svg>
+                  <span id="generate-label">Create study material</span>
+                  <span class="button-arrow">→</span>
+                </button>
+              </div>
+            </section>
+
+            <section class="panel result-panel hidden" id="result-panel" aria-live="polite">
+              <div class="result-top">
+                <div><div class="section-kicker">READY TO REVIEW</div><h2 id="result-title">Your quick summary</h2></div>
+                <span class="mode-badge" id="result-mode">Demo mode</span>
+              </div>
+              <div class="result-content" id="result-content"></div>
+              <div class="result-footer">
+                <span id="result-meta">Generated from your uploaded notes</span>
+                <div class="result-actions">
+                  <button type="button" class="secondary-button" id="copy-button"><svg viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg><span>Copy</span></button>
+                  <button type="button" class="secondary-button" id="download-button"><svg viewBox="0 0 24 24"><path d="M12 3v12m0 0 4-4m-4 4-4-4M5 17v3h14v-3"/></svg><span>Download</span></button>
+                </div>
+              </div>
+            </section>
+          </div>
+
+          <aside class="secondary-column">
+            <section class="panel how-panel">
+              <div class="side-panel-heading"><span class="mini-spark">✦</span><h3>Your study flow</h3></div>
+              <div class="flow-list">
+                <div class="flow-item complete"><span class="flow-number">1</span><div><strong>Upload notes</strong><small>PDF, DOCX or TXT</small></div><span class="flow-check">✓</span></div>
+                <div class="flow-connector"></div>
+                <div class="flow-item" id="flow-create"><span class="flow-number">2</span><div><strong>Create materials</strong><small>Choose a study format</small></div></div>
+                <div class="flow-connector"></div>
+                <div class="flow-item" id="flow-review"><span class="flow-number">3</span><div><strong>Review &amp; remember</strong><small>Study at your own pace</small></div></div>
+              </div>
+              <div class="flow-footnote"><svg viewBox="0 0 24 24"><path d="M12 3v18M5 8h14M7 8v3a5 5 0 0 0 10 0V8M5 8a2 2 0 0 0 4 0M15 8a2 2 0 0 0 4 0"/></svg> Small sessions add up. You’ve got this!</div>
+            </section>
+            <section class="panel ai-panel" id="ai-settings">
+              <div class="ai-panel-top"><span class="ai-symbol"><svg viewBox="0 0 24 24"><path d="m12 3 1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8L12 3Z"/></svg></span><span class="mode-badge demo-badge" id="connection-badge">Demo mode</span></div>
+              <h3>AI connection</h3>
+              <p id="ai-description">No AI service is connected. Study materials use transparent, local text-processing heuristics—not an AI model.</p>
+              <label for="endpoint-input" class="endpoint-label">Your secure server endpoint <span>Optional</span></label>
+              <input id="endpoint-input" class="endpoint-input" type="url" placeholder="https://your-domain.com/api/study" autocomplete="url">
+              <button type="button" class="text-button" id="save-endpoint">Save endpoint <span>→</span></button>
+              <p class="security-note"><svg viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V7a4 4 0 1 1 8 0v3"/></svg> Never enter an API key here. Connect a server-side proxy; only the endpoint URL is saved in this browser.</p>
+              <details class="endpoint-help">
+                <summary>What does the endpoint need to support?</summary>
+                <p>Accept a same-origin or CORS-enabled <code>POST</code> JSON body with <code>action</code>, <code>text</code> and <code>filename</code>. Return JSON with a non-empty <code>result</code> string. Keep provider credentials on your server.</p>
+              </details>
+              <div class="connection-message" id="connection-message" role="status"></div>
+            </section>
+            <div class="privacy-card"><span>✦</span><p><strong>Your notes, your space.</strong><br>Files are read in this browser and are not uploaded unless you choose to send text to your configured server endpoint.</p></div>
+          </aside>
+        </div>
+        <footer class="page-footer"><span>Made for curious minds.</span><span>Studywise <i>·</i> Learn with intention</span></footer>
+      </div>
+    </main>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
